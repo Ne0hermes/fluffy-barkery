@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, use } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -12,7 +12,8 @@ interface RecipeWithIngredientsData extends Recipe {
     })[]
 }
 
-export default function RecipeDetailPage({ params }: { params: { id: string } }) {
+export default function RecipeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const resolvedParams = use(params)
     const router = useRouter()
     const [recipe, setRecipe] = useState<RecipeWithIngredientsData | null>(null)
     const [loading, setLoading] = useState(true)
@@ -28,7 +29,7 @@ export default function RecipeDetailPage({ params }: { params: { id: string } })
             ingredients (*)
           )
         `)
-                .eq('id', params.id)
+                .eq('id', resolvedParams.id)
                 .single()
 
             if (error) throw error
@@ -38,7 +39,7 @@ export default function RecipeDetailPage({ params }: { params: { id: string } })
         } finally {
             setLoading(false)
         }
-    }, [params.id])
+    }, [resolvedParams.id])
 
     useEffect(() => {
         const checkAuthAndLoadRecipe = async () => {
@@ -62,7 +63,7 @@ export default function RecipeDetailPage({ params }: { params: { id: string } })
             const { error } = await supabase
                 .from('recipes')
                 .delete()
-                .eq('id', params.id)
+                .eq('id', resolvedParams.id)
 
             if (error) throw error
             router.push('/recipes')
