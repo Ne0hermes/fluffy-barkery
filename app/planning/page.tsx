@@ -1,18 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import type { ProductionPlan, Recipe } from '@/types/database'
-import { format, addDays, startOfWeek } from 'date-fns'
+import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 interface ProductionPlanWithRecipe extends ProductionPlan {
     recipes: Recipe
 }
 
-export default function PlanningPage() {
+function PlanningContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const [plans, setPlans] = useState<ProductionPlanWithRecipe[]>([])
@@ -401,5 +401,19 @@ export default function PlanningPage() {
                 )}
             </div>
         </div>
+    )
+}
+
+export default function PlanningPage() {
+    return (
+        <Suspense fallback={
+            <div className="page-content">
+                <div className="container">
+                    <div className="shimmer glass-card" style={{ padding: 'var(--spacing-2xl)', height: '300px' }}></div>
+                </div>
+            </div>
+        }>
+            <PlanningContent />
+        </Suspense>
     )
 }
