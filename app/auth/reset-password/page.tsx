@@ -73,120 +73,108 @@ export default function ResetPasswordPage() {
 
     if (checkingSession) {
         return (
-            <div className="page-content">
-                <div className="container">
-                    <div className="flex items-center justify-center" style={{ minHeight: '80vh' }}>
-                        <div className="shimmer glass-card" style={{ padding: 'var(--spacing-2xl)', width: '450px', height: '300px' }}></div>
-                    </div>
-                </div>
+            <div className="auth-page">
+                <div className="shimmer auth-card" style={{ height: '300px' }}></div>
             </div>
         )
     }
 
     if (!isValidSession) {
         return (
-            <div className="page-content">
-                <div className="container">
-                    <div className="flex items-center justify-center" style={{ minHeight: '80vh' }}>
-                        <div className="glass-card fade-in text-center" style={{ padding: 'var(--spacing-2xl)', maxWidth: '450px', width: '100%' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>⚠️</div>
-                            <h2>Lien invalide ou expire</h2>
-                            <p className="mt-sm mb-lg">Ce lien de reinitialisation n&apos;est plus valide. Veuillez en demander un nouveau.</p>
-                            <Link href="/auth/forgot-password" className="glass-button-primary" style={{ display: 'inline-block' }}>
-                                Demander un nouveau lien
-                            </Link>
-                        </div>
-                    </div>
+            <div className="auth-page">
+                <div className="auth-card fade-in text-center">
+                    <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>⚠️</div>
+                    <h2>Lien invalide ou expire</h2>
+                    <p className="mt-sm mb-lg">Ce lien de reinitialisation n&apos;est plus valide. Veuillez en demander un nouveau.</p>
+                    <Link href="/auth/forgot-password" className="glass-button-primary" style={{ display: 'block', width: '100%', textAlign: 'center', padding: 'var(--spacing-md)' }}>
+                        Demander un nouveau lien
+                    </Link>
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="page-content">
-            <div className="container">
-                <div className="flex items-center justify-center" style={{ minHeight: '80vh' }}>
-                    <div className="glass-card fade-in" style={{ padding: 'var(--spacing-2xl)', maxWidth: '450px', width: '100%' }}>
-                        <div className="text-center mb-xl">
-                            <h1 style={{ fontSize: '2rem', marginBottom: 'var(--spacing-sm)' }}>🔐</h1>
-                            <h2>Nouveau mot de passe</h2>
-                            <p className="mt-sm">Choisissez votre nouveau mot de passe</p>
+        <div className="auth-page">
+            <div className="auth-card fade-in">
+                <div className="text-center mb-xl">
+                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-sm)' }}>🔐</div>
+                    <h2>Nouveau mot de passe</h2>
+                    <p className="mt-sm">Choisissez votre nouveau mot de passe</p>
+                </div>
+
+                {success ? (
+                    <div className="text-center">
+                        <div style={{
+                            padding: 'var(--spacing-md)',
+                            background: 'rgba(109, 212, 168, 0.1)',
+                            border: '1px solid var(--color-success)',
+                            borderRadius: 'var(--radius-md)',
+                            color: 'var(--color-success)',
+                            marginBottom: 'var(--spacing-lg)'
+                        }}>
+                            Mot de passe modifie avec succes ! Redirection...
+                        </div>
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-md">
+                        <div>
+                            <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                                Nouveau mot de passe
+                            </label>
+                            <input
+                                id="password"
+                                type="password"
+                                className="glass-input"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                disabled={loading}
+                                minLength={6}
+                            />
                         </div>
 
-                        {success ? (
-                            <div className="text-center">
-                                <div style={{
-                                    padding: 'var(--spacing-md)',
-                                    background: 'rgba(109, 212, 168, 0.1)',
-                                    border: '1px solid var(--color-success)',
-                                    borderRadius: 'var(--radius-md)',
-                                    color: 'var(--color-success)',
-                                    marginBottom: 'var(--spacing-lg)'
-                                }}>
-                                    Mot de passe modifie avec succes ! Redirection...
-                                </div>
+                        <div>
+                            <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                                Confirmer le mot de passe
+                            </label>
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                className="glass-input"
+                                placeholder="••••••••"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                disabled={loading}
+                                minLength={6}
+                            />
+                        </div>
+
+                        {error && (
+                            <div style={{
+                                padding: 'var(--spacing-sm) var(--spacing-md)',
+                                background: 'rgba(244, 117, 96, 0.1)',
+                                border: '1px solid var(--color-error)',
+                                borderRadius: 'var(--radius-md)',
+                                color: 'var(--color-error)',
+                                fontSize: '0.9rem'
+                            }}>
+                                {error}
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="flex flex-col gap-md">
-                                <div>
-                                    <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                        Nouveau mot de passe
-                                    </label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        className="glass-input"
-                                        placeholder="••••••••"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                        disabled={loading}
-                                        minLength={6}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                        Confirmer le mot de passe
-                                    </label>
-                                    <input
-                                        id="confirmPassword"
-                                        type="password"
-                                        className="glass-input"
-                                        placeholder="••••••••"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                        required
-                                        disabled={loading}
-                                        minLength={6}
-                                    />
-                                </div>
-
-                                {error && (
-                                    <div style={{
-                                        padding: 'var(--spacing-sm) var(--spacing-md)',
-                                        background: 'rgba(244, 117, 96, 0.1)',
-                                        border: '1px solid var(--color-error)',
-                                        borderRadius: 'var(--radius-md)',
-                                        color: 'var(--color-error)',
-                                        fontSize: '0.9rem'
-                                    }}>
-                                        {error}
-                                    </div>
-                                )}
-
-                                <button
-                                    type="submit"
-                                    className="glass-button-primary"
-                                    disabled={loading}
-                                    style={{ width: '100%', padding: 'var(--spacing-md)' }}
-                                >
-                                    {loading ? 'Modification...' : 'Modifier le mot de passe'}
-                                </button>
-                            </form>
                         )}
-                    </div>
-                </div>
+
+                        <button
+                            type="submit"
+                            className="glass-button-primary"
+                            disabled={loading}
+                            style={{ width: '100%', padding: 'var(--spacing-md)' }}
+                        >
+                            {loading ? 'Modification...' : 'Modifier le mot de passe'}
+                        </button>
+                    </form>
+                )}
             </div>
         </div>
     )

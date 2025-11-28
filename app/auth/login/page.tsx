@@ -34,87 +34,80 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="page-content">
-            <div className="container">
-                <div className="flex items-center justify-center" style={{ minHeight: '80vh' }}>
-                    <div className="glass-card fade-in" style={{ padding: 'var(--spacing-2xl)', maxWidth: '450px', width: '100%' }}>
-                        <div className="text-center mb-xl">
-                            <h1 style={{ fontSize: '2rem', marginBottom: 'var(--spacing-sm)' }}>🥖</h1>
-                            <h2>Connexion</h2>
-                            <p className="mt-sm">Accédez à votre espace de planification</p>
-                        </div>
+        <div className="auth-page">
+            <div className="auth-card fade-in">
+                <div className="text-center mb-xl">
+                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-sm)' }}>🥖</div>
+                    <h2>Connexion</h2>
+                    <p className="mt-sm">Accedez a votre espace de planification</p>
+                </div>
 
-                        <form onSubmit={handleLogin} className="flex flex-col gap-md">
-                            <div>
-                                <label htmlFor="email" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                    Email
-                                </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    className="glass-input"
-                                    placeholder="votre@email.com"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                    Mot de passe
-                                </label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    className="glass-input"
-                                    placeholder="••••••••"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-
-                            <div style={{ textAlign: 'right' }}>
-                                <Link href="/auth/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
-                                    Mot de passe oublie ?
-                                </Link>
-                            </div>
-
-                            {error && (
-                                <div style={{
-                                    padding: 'var(--spacing-sm) var(--spacing-md)',
-                                    background: 'rgba(244, 117, 96, 0.1)',
-                                    border: '1px solid var(--color-error)',
-                                    borderRadius: 'var(--radius-md)',
-                                    color: 'var(--color-error)',
-                                    fontSize: '0.9rem'
-                                }}>
-                                    {error}
-                                </div>
-                            )}
-
-                            <button
-                                type="submit"
-                                className="glass-button-primary"
-                                disabled={loading}
-                                style={{ width: '100%', padding: 'var(--spacing-md)' }}
-                            >
-                                {loading ? 'Connexion...' : 'Se connecter'}
-                            </button>
-                        </form>
-
-                        <div className="text-center mt-lg">
-                            <p style={{ fontSize: '0.9rem' }}>
-                                Pas encore de compte ?{' '}
-                                <Link href="/auth/signup" style={{ color: 'var(--color-accent-primary)', fontWeight: '600' }}>
-                                    Créer un compte
-                                </Link>
-                            </p>
-                        </div>
+                <form onSubmit={handleLogin} className="flex flex-col gap-md">
+                    <div>
+                        <label htmlFor="email" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            type="email"
+                            className="glass-input"
+                            placeholder="votre@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            disabled={loading}
+                        />
                     </div>
+
+                    <div>
+                        <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                            Mot de passe
+                        </label>
+                        <input
+                            id="password"
+                            type="password"
+                            className="glass-input"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <div style={{ textAlign: 'right' }}>
+                        <Link href="/auth/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
+                            Mot de passe oublie ?
+                        </Link>
+                    </div>
+
+                    {error && (
+                        <div style={{
+                            padding: 'var(--spacing-sm) var(--spacing-md)',
+                            background: 'rgba(244, 117, 96, 0.1)',
+                            border: '1px solid var(--color-error)',
+                            borderRadius: 'var(--radius-md)',
+                            color: 'var(--color-error)',
+                            fontSize: '0.9rem'
+                        }}>
+                            {error}
+                        </div>
+                    )}
+
+                    <button
+                        type="submit"
+                        className="glass-button-primary"
+                        disabled={loading}
+                        style={{ width: '100%', padding: 'var(--spacing-md)' }}
+                    >
+                        {loading ? 'Connexion...' : 'Se connecter'}
+                    </button>
+                </form>
+
+                <div className="text-center mt-lg" style={{ paddingTop: 'var(--spacing-md)', borderTop: '1px solid var(--color-glass-border)' }}>
+                    <Link href="/auth/signup" className="glass-button" style={{ width: '100%', display: 'block', textAlign: 'center', padding: 'var(--spacing-md)' }}>
+                        Creer un compte
+                    </Link>
                 </div>
             </div>
         </div>

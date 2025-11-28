@@ -47,97 +47,90 @@ export default function SignupPage() {
     }
 
     return (
-        <div className="page-content">
-            <div className="container">
-                <div className="flex items-center justify-center" style={{ minHeight: '80vh' }}>
-                    <div className="glass-card fade-in" style={{ padding: 'var(--spacing-2xl)', maxWidth: '450px', width: '100%' }}>
-                        <div className="text-center mb-xl">
-                            <h1 style={{ fontSize: '2rem', marginBottom: 'var(--spacing-sm)' }}>🥖</h1>
-                            <h2>Créer un compte</h2>
-                            <p className="mt-sm">Commencez à planifier votre production</p>
-                        </div>
+        <div className="auth-page">
+            <div className="auth-card fade-in">
+                <div className="text-center mb-xl">
+                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-sm)' }}>🥖</div>
+                    <h2>Creer un compte</h2>
+                    <p className="mt-sm">Commencez a planifier votre production</p>
+                </div>
 
-                        <form onSubmit={handleSignup} className="flex flex-col gap-md">
-                            <div>
-                                <label htmlFor="email" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                    Email
-                                </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    className="glass-input"
-                                    placeholder="votre@email.com"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                    Mot de passe
-                                </label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    className="glass-input"
-                                    placeholder="••••••••"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
-                                    Confirmer le mot de passe
-                                </label>
-                                <input
-                                    id="confirmPassword"
-                                    type="password"
-                                    className="glass-input"
-                                    placeholder="••••••••"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-
-                            {error && (
-                                <div style={{
-                                    padding: 'var(--spacing-sm) var(--spacing-md)',
-                                    background: 'rgba(244, 117, 96, 0.1)',
-                                    border: '1px solid var(--color-error)',
-                                    borderRadius: 'var(--radius-md)',
-                                    color: 'var(--color-error)',
-                                    fontSize: '0.9rem'
-                                }}>
-                                    {error}
-                                </div>
-                            )}
-
-                            <button
-                                type="submit"
-                                className="glass-button-primary"
-                                disabled={loading}
-                                style={{ width: '100%', padding: 'var(--spacing-md)' }}
-                            >
-                                {loading ? 'Création...' : 'Créer mon compte'}
-                            </button>
-                        </form>
-
-                        <div className="text-center mt-lg">
-                            <p style={{ fontSize: '0.9rem' }}>
-                                Déjà un compte ?{' '}
-                                <Link href="/auth/login" style={{ color: 'var(--color-accent-primary)', fontWeight: '600' }}>
-                                    Se connecter
-                                </Link>
-                            </p>
-                        </div>
+                <form onSubmit={handleSignup} className="flex flex-col gap-md">
+                    <div>
+                        <label htmlFor="email" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            type="email"
+                            className="glass-input"
+                            placeholder="votre@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            disabled={loading}
+                        />
                     </div>
+
+                    <div>
+                        <label htmlFor="password" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                            Mot de passe
+                        </label>
+                        <input
+                            id="password"
+                            type="password"
+                            className="glass-input"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: 'var(--spacing-sm)', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                            Confirmer le mot de passe
+                        </label>
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            className="glass-input"
+                            placeholder="••••••••"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                            disabled={loading}
+                        />
+                    </div>
+
+                    {error && (
+                        <div style={{
+                            padding: 'var(--spacing-sm) var(--spacing-md)',
+                            background: 'rgba(244, 117, 96, 0.1)',
+                            border: '1px solid var(--color-error)',
+                            borderRadius: 'var(--radius-md)',
+                            color: 'var(--color-error)',
+                            fontSize: '0.9rem'
+                        }}>
+                            {error}
+                        </div>
+                    )}
+
+                    <button
+                        type="submit"
+                        className="glass-button-primary"
+                        disabled={loading}
+                        style={{ width: '100%', padding: 'var(--spacing-md)' }}
+                    >
+                        {loading ? 'Creation...' : 'Creer mon compte'}
+                    </button>
+                </form>
+
+                <div className="text-center mt-lg" style={{ paddingTop: 'var(--spacing-md)', borderTop: '1px solid var(--color-glass-border)' }}>
+                    <Link href="/auth/login" className="glass-button" style={{ width: '100%', display: 'block', textAlign: 'center', padding: 'var(--spacing-md)' }}>
+                        Se connecter
+                    </Link>
                 </div>
             </div>
         </div>
