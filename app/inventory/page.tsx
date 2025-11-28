@@ -106,7 +106,7 @@ export default function InventoryPage() {
                     <div className="glass-card fade-in text-center" style={{ padding: 'var(--spacing-2xl)' }}>
                         <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>📦</div>
                         <h2>Aucun ingrédient</h2>
-                        <p className="mb-lg">Créez vos premiers ingrédients lors de la création d'une recette</p>
+                        <p className="mb-lg">Créez vos premiers ingrédients lors de la création d&apos;une recette</p>
                         <Link href="/recipes/new">
                             <button className="glass-button-primary">
                                 Créer une recette

@@ -77,7 +77,7 @@ export default function DashboardPage() {
                         <div className="glass-card fade-in" style={{ padding: 'var(--spacing-xl)', cursor: 'pointer', height: '100%', animationDelay: '0.2s' }}>
                             <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-md)' }}>🛒</div>
                             <h3>Liste de courses</h3>
-                            <p>Gérer vos achats d'ingrédients</p>
+                            <p>Gérer vos achats d&apos;ingrédients</p>
                         </div>
                     </Link>
 
@@ -85,7 +85,7 @@ export default function DashboardPage() {
                         <div className="glass-card fade-in" style={{ padding: 'var(--spacing-xl)', cursor: 'pointer', height: '100%', animationDelay: '0.3s' }}>
                             <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-md)' }}>📦</div>
                             <h3>Inventaire</h3>
-                            <p>Suivre votre stock d'ingrédients</p>
+                            <p>Suivre votre stock d&apos;ingrédients</p>
                         </div>
                     </Link>
                 </div>

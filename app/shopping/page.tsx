@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -43,13 +43,7 @@ export default function ShoppingPage() {
         checkAuth()
     }, [router])
 
-    useEffect(() => {
-        if (startDate && endDate) {
-            generateShoppingList()
-        }
-    }, [startDate, endDate])
-
-    const generateShoppingList = async () => {
+    const generateShoppingList = useCallback(async () => {
         try {
             // Get production plans in date range
             const { data: plans, error: plansError } = await supabase
@@ -107,7 +101,13 @@ export default function ShoppingPage() {
         } catch (error) {
             console.error('Error generating shopping list:', error)
         }
-    }
+    }, [startDate, endDate])
+
+    useEffect(() => {
+        if (startDate && endDate) {
+            generateShoppingList()
+        }
+    }, [startDate, endDate, generateShoppingList])
 
     if (loading) {
         return (
@@ -166,7 +166,7 @@ export default function ShoppingPage() {
                         <h2>Aucun achat nécessaire</h2>
                         <p className="mb-lg">
                             Vous avez suffisamment de stock pour la période sélectionnée,<br />
-                            ou aucune production n'est planifiée.
+                            ou aucune production n&apos;est planifiée.
                         </p>
                         <Link href="/planning">
                             <button className="glass-button-primary">

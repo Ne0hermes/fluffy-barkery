@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -17,22 +17,7 @@ export default function RecipeDetailPage({ params }: { params: { id: string } })
     const [recipe, setRecipe] = useState<RecipeWithIngredientsData | null>(null)
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const checkAuthAndLoadRecipe = async () => {
-            const { data: { session } } = await supabase.auth.getSession()
-
-            if (!session) {
-                router.push('/auth/login')
-                return
-            }
-
-            await loadRecipe()
-        }
-
-        checkAuthAndLoadRecipe()
-    }, [params.id, router])
-
-    const loadRecipe = async () => {
+    const loadRecipe = useCallback(async () => {
         try {
             const { data, error } = await supabase
                 .from('recipes')
@@ -53,7 +38,22 @@ export default function RecipeDetailPage({ params }: { params: { id: string } })
         } finally {
             setLoading(false)
         }
-    }
+    }, [params.id])
+
+    useEffect(() => {
+        const checkAuthAndLoadRecipe = async () => {
+            const { data: { session } } = await supabase.auth.getSession()
+
+            if (!session) {
+                router.push('/auth/login')
+                return
+            }
+
+            await loadRecipe()
+        }
+
+        checkAuthAndLoadRecipe()
+    }, [router, loadRecipe])
 
     const handleDelete = async () => {
         if (!confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) return
